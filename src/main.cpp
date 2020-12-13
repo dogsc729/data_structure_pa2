@@ -11,6 +11,12 @@
 #include <iomanip>
 
 using namespace std;
+long Hashfunction(long left, long right)
+{
+    long hashvalue;
+    hashvalue = ((243 * left) + right) % 85767489;
+    return hashvalue;
+}
 int main()
 {
     fstream fin("./inputs/password.txt"), fout;
@@ -33,11 +39,24 @@ int main()
     }
     for (int i = 0; i < 1000; i++)
     {
-        string temp = numeinput;
-        
+        string temp;
+        if (i < 10)
+        {
+            temp = "00" + to_string(i) + numeinput;
+        }
+        else if (i < 100)
+        {
+            temp = "0" + to_string(i) + numeinput;
+        }
+        else
+        {
+            temp = to_string(i) + numeinput;
+        }
+        long left = stol(temp.substr(0,8));
+        long right = stol(temp.substr(8));
         fout << input << " "
              << setw(3) << setfill('0') << i
-             << " " << numeinput << endl;
+             << " " << Hashfunction(left,right) << endl;
     }
     return 0;
 }
