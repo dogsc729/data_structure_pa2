@@ -9,11 +9,11 @@ ARFLAGS = rcv
 DBGFLAGS = -g -D_DEBUG_ON_
 OPTFLAGS = -O2
 
-all	: bin/pswdhash
-	@echo -n ""
-
 # optimized version 
-bin/pswdhash : src/main.cpp
+bin/pswdhash1 : src/main.cpp
+	$(CC) -std=c++11 $^ -o $@
+			
+bin/pswdhash2 : src/results_pa2.cpp
 	$(CC) -std=c++11 $^ -o $@
 
 # clean all the .o and executable files

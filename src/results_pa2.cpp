@@ -72,46 +72,30 @@ int main()
                  << " " << hashvalue << endl;
         }
     }
-    cout << "please enter a hash value" << endl;
+    fout.close();
+    fstream fin2("./inputs/list_pa2.txt"), fout2;
+    fout2.open("./outputs/results_pa2.txt", ios::out);
     string target_hashvalue;
-    cin >> target_hashvalue;
-    for (int i = 0; i < hash_value.size(); i++)
+    while (fin2 >> target_hashvalue)
     {
-        if (target_hashvalue == hash_value[i])
+        int i;
+        for (i = 0; i < hash_value.size(); i++)
         {
-            cout << "the password is recovered!" << endl;
-            cout << "the password is " << passwordset[i] << endl;
-            cout << "the number of entries has been searched:" << i+1 << endl;
-            return 0;
+            if (target_hashvalue == hash_value[i])
+            {
+                fout2 << std::right << setw(8) << target_hashvalue << " " << passwordset[i] << " " << setw(3) << setfill('0') << (i % 1000) << " " << i+1 << endl;
+                break;
+            }
+        }
+        if (i == 100000)
+        {
+            fout2 << std::right << setw(8) << target_hashvalue << " "
+                  << "******"
+                  << " " << setw(3) << setfill('0') << "***"
+                  << " "
+                  << "100000" << endl;
         }
     }
-    cout << "the password is not found!" << endl;
-    cout << "the number of entries has been searched:100000" << endl;
-    /*//transform the password to numeric value
-    for (int i = 0; i < input.size(); i++)
-    {
-        numeinput = numeinput + to_string(int(input[i]));
-    }
-    for (int i = 0; i < 1000; i++)
-    {
-        string temp;
-        if (i < 10)
-        {
-            temp = "00" + to_string(i) + numeinput;
-        }
-        else if (i < 100)
-        {
-            temp = "0" + to_string(i) + numeinput;
-        }
-        else
-        {
-            temp = to_string(i) + numeinput;
-        }
-        long left = stol(temp.substr(0, 8));
-        long right = stol(temp.substr(8));
-        fout << input << " "
-             << setw(3) << setfill('0') << i
-             << " " << Hashfunction(left, right) << endl;
-    }*/
+    fout2.close();
     return 0;
 }
