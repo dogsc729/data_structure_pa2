@@ -83,7 +83,7 @@ int main()
         {
             if (target_hashvalue == hash_value[i])
             {
-                fout2 << std::right << setw(8) << target_hashvalue << " " << passwordset[i] << " " << setw(3) << setfill('0') << (i % 1000) << " " << i+1 << endl;
+                fout2 << std::right << target_hashvalue << " " << passwordset[i] << " " << setw(3) << setfill('0') << (i % 1000) << " " << i+1 << endl;
                 break;
             }
         }
