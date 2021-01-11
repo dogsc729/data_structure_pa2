@@ -11,13 +11,7 @@
 #include <iomanip>
 
 using namespace std;
-struct saltpassword
-{
-    string password;
-    string salt;
-    string hash_value;
-};
-vector<saltpassword> dictionary;
+
 long Hashfunction(long left, long right)
 {
     long hashvalue;
@@ -75,18 +69,27 @@ int main()
     cout << "please enter a hash value" << endl;
     string target_hashvalue;
     cin >> target_hashvalue;
-    for (int i = 0; i < hash_value.size(); i++)
+    while (target_hashvalue != "STOP")
     {
-        if (target_hashvalue == hash_value[i])
+        int i;
+        for (i = 0; i < hash_value.size(); i++)
         {
-            cout << "the password is recovered!" << endl;
-            cout << "the password is " << passwordset[i] << endl;
-            cout << "the number of entries has been searched:" << i+1 << endl;
-            return 0;
+            if (target_hashvalue == hash_value[i])
+            {
+                cout << "the password is recovered!" << endl;
+                cout << "the password is " << passwordset[i] << endl;
+                cout << "the number of entries has been searched:" << i + 1 << endl;
+                break;
+            }
         }
+        if (i == 100000)
+        {
+            cout << "the password is not found!" << endl;
+            cout << "the number of entries has been searched:100000" << endl;
+        }
+        cout << "please enter a hash value" << endl;
+        cin >> target_hashvalue;
     }
-    cout << "the password is not found!" << endl;
-    cout << "the number of entries has been searched:100000" << endl;
     /*//transform the password to numeric value
     for (int i = 0; i < input.size(); i++)
     {
